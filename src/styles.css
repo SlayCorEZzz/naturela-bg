@@ -1,0 +1,525 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-surface: var(--surface);
+  --color-surface-foreground: var(--surface-foreground);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-foreground: var(--ink-foreground);
+  --color-brand: var(--brand);
+  --color-brand-light: var(--brand-light);
+  --font-display: "Onest", "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  --radius: 0.875rem;
+
+  /* brand — sampled from the Naturela mark */
+  --ink: #0c1424;
+  --ink-soft: #16203a;
+  --ink-foreground: #eef2f9;
+  --brand: #3f63b4;
+  --brand-strong: #2c4a8f;
+  --brand-light: #7690c9;
+  --accent: #10b3c6;
+
+  --background: #ffffff;
+  --foreground: #101a2e;
+  --card: #ffffff;
+  --card-foreground: #101a2e;
+  --popover: #ffffff;
+  --popover-foreground: #101a2e;
+  --primary: var(--brand);
+  --primary-foreground: #ffffff;
+  --secondary: #eef2f9;
+  --secondary-foreground: #1c2a47;
+  --muted: #f4f6fb;
+  --muted-foreground: #5d6a85;
+  --accent-foreground: #04303a;
+  --destructive: #d1384c;
+  --destructive-foreground: #ffffff;
+  --border: #e2e8f2;
+  --input: #dfe6f1;
+  --ring: var(--brand);
+  --surface: #f5f7fc;
+  --surface-foreground: #16203a;
+
+  /* flat surfaces only — no gradients anywhere in the palette */
+  --hero-scrim: rgb(10 18 34 / 0.55);
+
+  --shadow-soft: 0 1px 2px rgb(12 20 36 / 0.04), 0 10px 30px -18px rgb(12 20 36 / 0.28);
+  --shadow-lift: 0 28px 64px -30px rgb(12 20 36 / 0.42);
+  --header-h: 4.5rem;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--header-h) + 1rem);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.022em;
+    text-wrap: balance;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* ---------------------------------------------------------------- layout */
+
+@utility shell {
+  width: 100%;
+  margin-inline: auto;
+  max-width: 80rem;
+  padding-inline: 1.125rem;
+
+  @media (width >= 40rem) {
+    padding-inline: 1.75rem;
+  }
+  @media (width >= 80rem) {
+    padding-inline: 2rem;
+  }
+}
+
+@utility section-y {
+  padding-block: clamp(3.5rem, 7vw, 6.5rem);
+}
+
+/* ---------------------------------------------------------------- type */
+
+@utility eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brand);
+}
+
+@utility title-xl {
+  font-size: clamp(2rem, 5.2vw, 3.4rem);
+  line-height: 1.06;
+  font-weight: 800;
+}
+
+@utility title-lg {
+  font-size: clamp(1.6rem, 3.6vw, 2.4rem);
+  line-height: 1.14;
+  font-weight: 800;
+}
+
+@utility text-highlight {
+  color: var(--brand-light);
+}
+
+/* ---------------------------------------------------------------- surfaces */
+
+@utility surface-card {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-soft);
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lift);
+    border-color: color-mix(in oklab, var(--brand) 38%, var(--border));
+  }
+}
+
+@utility btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  padding: 0.8rem 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #fff;
+  background-color: var(--brand);
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease;
+
+  &:hover {
+    transform: translateY(-1px);
+    background-color: var(--brand-strong);
+  }
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+@utility btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  padding: 0.75rem 1.4rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--foreground);
+  background: var(--card);
+  transition:
+    border-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease;
+
+  &:hover {
+    border-color: var(--brand);
+    color: var(--brand);
+    transform: translateY(-2px);
+  }
+}
+
+@utility chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--muted);
+  padding: 0.3rem 0.7rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--muted-foreground);
+}
+
+/* ---------------------------------------------------------------- motion */
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@utility rise-in {
+  animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@utility marquee-track {
+  animation: marquee 42s linear infinite;
+
+  @media (hover: hover) {
+    &:hover {
+      animation-play-state: paused;
+    }
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@utility fade-in {
+  animation: fade-in 0.25s ease both;
+}
+
+@keyframes drawer-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@utility drawer-in {
+  animation: drawer-in 0.22s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ------------------------------------------------------- legacy prose
+   Product copy is imported from the previous site as raw HTML: font tags,
+   nested tables, fixed pixel widths. Everything below re-homes that markup
+   in the new type scale and, above all, makes it survive a 360px viewport. */
+
+@utility prose-legacy {
+  color: var(--foreground);
+  font-size: 1.0175rem;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+
+  & p {
+    margin-block: 0 1.05em;
+    text-align: left;
+  }
+
+  & b,
+  & strong {
+    font-weight: 700;
+    color: var(--ink-soft);
+  }
+
+  & a {
+    color: var(--brand);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+    text-decoration-color: color-mix(in oklab, var(--brand) 40%, transparent);
+  }
+
+  & a:hover {
+    text-decoration-color: var(--brand);
+  }
+
+  & h1,
+  & h2,
+  & h3,
+  & h4 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-block: 1.8em 0.6em;
+    color: var(--ink);
+  }
+
+  & h1 {
+    font-size: 1.6rem;
+  }
+  & h2 {
+    font-size: 1.35rem;
+  }
+  & h3 {
+    font-size: 1.15rem;
+  }
+
+  & ul,
+  & ol {
+    margin-block: 0 1.2em;
+    padding-inline-start: 1.15rem;
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  & ul {
+    list-style: none;
+    padding-inline-start: 0;
+  }
+
+  & ul > li {
+    position: relative;
+    padding-inline-start: 1.6rem;
+  }
+
+  & ul > li::before {
+    content: "";
+    position: absolute;
+    inset-inline-start: 0.15rem;
+    top: 0.72em;
+    width: 0.42rem;
+    height: 0.42rem;
+    border-radius: 999px;
+    background: var(--accent);
+  }
+
+  & ol {
+    list-style: decimal;
+  }
+
+  & ol > li::marker {
+    color: var(--brand);
+    font-weight: 700;
+  }
+
+  & li > p {
+    margin-block: 0 0.4em;
+  }
+
+  & img {
+    display: block;
+    height: auto !important;
+    width: auto;
+    max-width: 100%;
+    margin-inline: auto;
+    margin-block: 1.5rem;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    background: var(--card);
+  }
+
+  /* the old markup centres images inside <p>; keep that but never overflow */
+  & p:has(> img) {
+    text-align: center;
+  }
+
+  & table {
+    width: 100% !important;
+    min-width: 28rem;
+    border-collapse: collapse;
+    font-size: 0.94rem;
+    background: var(--card);
+  }
+
+  & table td,
+  & table th {
+    border: 1px solid var(--border);
+    padding: 0.6rem 0.8rem;
+    vertical-align: top;
+  }
+
+  & table th {
+    background: var(--muted);
+    font-weight: 700;
+    text-align: start;
+  }
+
+  /* tables get an individual horizontal scroller (added at runtime) */
+  & .table-scroll {
+    overflow-x: auto;
+    margin-block: 1.5rem;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    -webkit-overflow-scrolling: touch;
+  }
+
+  & .table-scroll > table {
+    border: 0;
+  }
+
+  & iframe,
+  & video,
+  & embed {
+    max-width: 100%;
+    border-radius: var(--radius-lg);
+  }
+
+  & hr {
+    border: 0;
+    border-top: 1px solid var(--border);
+    margin-block: 2rem;
+  }
+}
+
+@utility prose-invert {
+  color: color-mix(in oklab, var(--ink-foreground) 82%, transparent);
+
+  & b,
+  & strong,
+  & h1,
+  & h2,
+  & h3,
+  & h4 {
+    color: var(--ink-foreground);
+  }
+
+  & a {
+    color: var(--brand-light);
+  }
+}
+
+/* scrollbar polish on scrollable prose tables + mobile drawer */
+@utility thin-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+
+  &::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 999px;
+  }
+}
